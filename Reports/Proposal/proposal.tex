@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Proposal of Capstone project}
+\author{
+  Debasish Das\\
+  \texttt{d.das@student.fdu.edu}
+  \and
+  Sai Nithish Reddy Madireddy\\
+  \texttt{s.madireddy@student.fdu.edu}
+  \and
+  Sanad Mukadam\\
+  \texttt{s.mukadam@student.fdu.edu}
+}
+\date{9 June 2023}
+
+\bibliographystyle{plain}
+\usepackage[hyphens,spaces]{url}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+Our project aims to find the optimized route to visit multiple locations from the source based on shortest distance and safety concerns. Travellers, drivers, delivery persons, business-people and others need to go to different places or locations. The preferences to traverse differs based on distance, time, safety, cost and other criteria. An optimized route would help to meet these needs. It is a challenging problem because finding optimized route to traverse all the locations needs a good algorithm, and the preference varies from one to another. We will develop a web application named 'nav-me' to provide the optimized route.
+
+\section{Related work}
+Route4Me provides the shortest route for its customers to go to multiple locations avoiding left turn for fuel efficiency and safety\cite{r1}. Waze provide routing information regarding live update, construction and other criteria\cite{r2}. Google map allows adding multiple destinations or stops\cite{r3}. Here, we could not find the shortest routes for multiple destinations. On the other hand, the project focuses on providing service to generate optimized route for multiple destinations based on user's preferences like setting priority or weight on safety, distance or others. 
+
+\section{Approach}
+.NET core would be used to build the web API because it is a cross platform open source framework, and provides lots of build in features. Mostly, C\#, JavaScript, HTML, CSS would be used for programming. An efficient algorithm to traverse all the nodes with shortest path would be implemented. Google Maps Platform API would be used for distance matrix and location on map. OpenStreetMap API would be used to find and process the roads and junctions for an area. Then user would be able to set weight on roads. Whereas, the distance martix from Google Maps Platform can be prioritized for location pairs.
+
+\section{Deliverable}
+Minimum Viable Product(MVP):
+
+Week\#1,2: User will provide a set of destinations. And, the API will provide the best sequence to visit all the destinations with minimum distance. User will be able to set priority and time constraints on a destination.
+\\
+\\
+Product Backlog:
+
+Week\#3,4: In an area, roads as edges and junctions as nodes can be processed from OpenStreetMap API.
+
+Week\#5: Weight can be set on the processed edges based on based on left turn, safety concerns or, others.
+
+Week\#6: User will be able to get the optimized route from source to destination with the processed edges and nodes.
+
+\section{Evaluation}
+Development of MVP would be considered initial success. Completion of each use case in the product backlog would turn into successful outcome of the project.
+
+\section{Risks}
+Processing the data from OpenStreetMap API for a specific area to generate roads as edges and junctions as nodes is considered most challenging and risky part. The learning curve is unknown since we did not work on OpenStreet and Google Maps Platform API before. And, time is short for summer semester. We would try to distribute the workload. If we still fail to implement it, we will create a UI where user can create maps with roads, set weight and find the route from source to destination.
+
+\section{Conclusion}
+The successful implementation of this project would create many use cases for other applications. Since it is a web API based application it would be scalable, and can be integrated with other mobile applications and systems.
+
+\bibliography{proposal.bib}
+
+\end{document}
