@@ -1,0 +1,60 @@
+@charset "utf-8";
+
+* {
+  box-sizing: border-box;
+}
+body{  
+  background-image: url("images/bg.png");
+  background-color: #b3d9ff;  
+  
+  -webkit-animation: slidein 30s;
+        animation: slidein 30s;
+
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+
+        -webkit-animation-direction: alternate;
+        animation-direction: alternate;              
+}
+
+@-webkit-keyframes slidein {
+  from {background-position: top; background-size:1005px;}
+  to {background-position: -100px 0px;background-size:750px;}
+  }
+  
+  @keyframes slidein {
+  from {background-position: top; background-size:1005px;}
+  to {background-position: -100px 0px; background size: 750px;}
+  
+  }
+  
+  h1
+  {
+    padding: 15% 0 3% 0;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 52px;
+    font-weight: 600;
+    color: #000066;    
+  }
+  .button
+  {
+    width: 150px;
+    padding: 1%;
+    margin: 3%;
+    background-color: #000066;        
+    border: 1px;
+    border-radius: 10px;
+  }
+  .button:hover
+  {
+    width: 150px;
+    padding: 1%;
+    margin: 3%;
+    background-color: #000080;        
+    border: 1px;
+    border-radius: 10px;
+  }
