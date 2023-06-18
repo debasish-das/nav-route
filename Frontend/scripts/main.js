@@ -4,35 +4,52 @@
 */
 
 let appVars = {
-    startingPoint: {},
+    startingPoints: [],
     destinations: []
 }
 
 function initApp() {
-    addInputFieldForPlaces(true);
+    addInputFieldForPlaces();
+    addEventListeners();
 }
 
 window.initApp = initApp;
 
-function addInputFieldForPlaces(isStartPoint) {
+function addEventListeners() {
+    [
+        { selector: "#add-place-btn", eventFunction: addInputFieldForPlaces },
+    ].forEach(item => {
+        document.querySelector(item.selector).addEventListener("click", item.eventFunction, false)
+    })
+}
+
+function addInputFieldForPlaces(event) {
+    let isStartPoint = event ? false : true;
     let input = document.createElement("input");
+    let timeId = new Date().valueOf();
+    let placeType = isStartPoint ? "startingPoints" : "destinations";
     input.setAttribute("class", "form-control mb-3");
+    input.setAttribute("time-id", timeId);
 
     if (isStartPoint) {
         input.setAttribute("placeholder", "Enter starting point");
-        appVars.startingPoint.inputField = input;
-        document.getElementById("places-part").append(input);
+        document.getElementById("places").prepend(input);
     }
     else {
-        input.setAttribute("placeholder", "Enter destination");
-        appVars.destinations.push({ inputField: input });
-        document.getElementById("places-part").append(input);
+        input.setAttribute("placeholder", "Enter destination")
+        document.getElementById("places").append(input);
     }
+
+    let place = {
+        id: timeId,
+        mapInfo: null
+    }
+    appVars[placeType].push(place);
 
     let autocomplete = new google.maps.places.Autocomplete(
         input,
         { types: ['geocode'] });
     autocomplete.addListener('place_changed', () => {
-        console.log(autocomplete.getPlace());
+        place.mapInfo = autocomplete.getPlace();
     });
 }
