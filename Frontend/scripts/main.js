@@ -24,22 +24,35 @@ function addEventListeners() {
 }
 
 function addInputFieldForPlaces(event) {
-    let isStartPoint = event ? false : true;
+    let inputDiv = document.createElement("div");
+    inputDiv.className = "input-group mb-3";
+    
     let input = document.createElement("input");
-    let timeId = new Date().valueOf();
-    let placeType = isStartPoint ? "startingPoints" : "destinations";
-    input.setAttribute("class", "form-control mb-3");
-    input.setAttribute("time-id", timeId);
+    input.setAttribute("class", "form-control");
+    inputDiv.appendChild(input);
 
+    let timeId = new Date().valueOf();
+    inputDiv.setAttribute("time-id", timeId);
+
+    let isStartPoint = event && event.target.id === "add-place-btn" ? false : true;
     if (isStartPoint) {
         input.setAttribute("placeholder", "Enter starting point");
-        document.getElementById("places").prepend(input);
+        document.getElementById("places").prepend(inputDiv);
     }
     else {
-        input.setAttribute("placeholder", "Enter destination")
-        document.getElementById("places").append(input);
+        let crossBtn = document.createElement("span");
+        crossBtn.innerHTML = `❌`
+        crossBtn.className = "input-group-text";
+        crossBtn.style = "cursor:pointer";
+        crossBtn.timeId = timeId
+        crossBtn.addEventListener("click", romovePlaceInputField);
+
+        input.setAttribute("placeholder", "Enter destination");
+        inputDiv.appendChild(crossBtn);
+        document.getElementById("destinations").prepend(inputDiv);
     }
 
+    let placeType = isStartPoint ? "startingPoints" : "destinations";
     let place = {
         id: timeId,
         mapInfo: null
@@ -52,4 +65,11 @@ function addInputFieldForPlaces(event) {
     autocomplete.addListener('place_changed', () => {
         place.mapInfo = autocomplete.getPlace();
     });
+}
+
+function romovePlaceInputField(event) {
+    let parentNode = event.target.closest("[time-id]");
+    let timeId = parentNode.getAttribute("time-id");
+    appVars.destinations = appVars.destinations.filter(x => x.id != timeId);
+    parentNode.remove();
 }
