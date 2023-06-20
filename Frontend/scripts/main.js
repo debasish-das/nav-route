@@ -203,7 +203,8 @@ function getDistanceMatrix(places) {
 //     }
 // }
 
-
+// GeneratingPermutation using heap algorithm
+// Reference: https://en.wikipedia.org/wiki/Heap%27s_algorithm
 function getPermutation(k, arr) {
     if (k === 1) {
         console.log(arr)
