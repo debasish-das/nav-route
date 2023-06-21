@@ -76,7 +76,8 @@ function getRoutesFromDistancMatrix(res) {
         }
         routes.push({ route: moves })
     })
-    console.log(routes)
+    console.log(routes);
+    document.querySelector("#routes").innerHTML = `<pre>${JSON.stringify(routes, null, 2)}</pre>`
 }
 
 function getMoves(res, startIndex, destinationIndex) {
