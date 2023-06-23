@@ -4,7 +4,7 @@
 */
 
 import { addInputFieldForPlaces } from './PlaceInput.js';
-import { appVars } from './appVars.js';
+import { appData } from './appData.js';
 import { sampleRoutes } from '../data/sample.js';
 
 function initApp() {
@@ -24,9 +24,9 @@ function addEventListeners() {
 }
 
 function generateRoutes() {
-    if (appVars.startingPoints.length && appVars.startingPoints[0].mapInfo) {
-        let startingPoint = appVars.startingPoints[0];
-        let destinations = appVars.destinations.filter(x => x.mapInfo);
+    if (appData.startingPoints.length && appData.startingPoints[0].mapInfo) {
+        let startingPoint = appData.startingPoints[0];
+        let destinations = appData.destinations.filter(x => x.mapInfo);
         if (destinations.length) {
             let places = [];
             places.push(startingPoint.mapInfo.geometry.location)
@@ -83,20 +83,23 @@ function getRoutesFromDistancMatrix(res) {
         }
         routes.push({ route, totalDistance, totalTime })
     })
+
     console.log(sampleRoutes);
     sampleRoutes.sort(compareRoutes);
+    appData.routes = sampleRoutes;
     showRouteInformation(sampleRoutes);
 }
 
 function showRouteInformation(routes) {
 
-    document.querySelector("#routes").innerHTML = routes.map((x,i) => {
+    document.querySelector("#routes").innerHTML = routes.map((x, i) => {
         return `
         <div>
             <div class="mt-4">
-                <span>Route#${i+1}</span> | 
-                <span>Total Distance: ${x.totalDistance/1000} KM</span> | 
-                <span>Estimated Time: ${getTime(x.totalTime)}</span>
+                <span>Route#${i + 1}</span> | 
+                <span>Total Distance: ${x.totalDistance / 1000} KM</span> | 
+                <span>Estimated Time: ${getTime(x.totalTime)}</span> |
+                <button class="map-show-btn" route-id="${i}">Show Map</button>
             </div>
             <table class="table table-striped table-bordered">
                 <thead>
@@ -109,18 +112,22 @@ function showRouteInformation(routes) {
                 </thead>
                 <tbody>
                     ${x.route.map(y => {
-                        return `<tr>
+            return `<tr>
                                 <td>${y.start}</td>
                                 <td>${y.stop}</td>
                                 <td>${y.distance.text}</td>
                                 <td>${y.time.text}</td>
                             </tr>`
-                        }).join("")
-                    }
+        }).join("")
+            }
                 </tbody>
             </table>
         </div>`
-    }).join("")
+    }).join("");
+
+    document.querySelectorAll(".map-show-btn").forEach(element => {
+        element.addEventListener("click", showRouteOnMap)
+    })
 }
 
 function getMove(res, startIndex, destinationIndex) {
@@ -162,4 +169,44 @@ function getTime(seconds) {
 
 function compareRoutes(a, b) {
     return a.totalDistance - b.totalDistance
+}
+
+function showRouteOnMap(event) {
+    const routeId = event.target.getAttribute("route-id")
+    if (appData.routes[routeId] && appData.routes[routeId].route && appData.routes[routeId].route.length) {
+        const route = appData.routes[routeId].route;
+        const directionsService = new google.maps.DirectionsService();
+        const directionsRenderer = new google.maps.DirectionsRenderer();
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 6,
+            center: { lat: 41.85, lng: -87.65 },
+        });
+        directionsRenderer.setMap(map);
+        const waypoints = [];
+
+        for (let i = 1; i < route.length; i++) {
+            if (route[i].start) {
+                waypoints.push({
+                    location: route[i].start,
+                    stopover: true,
+                });
+            }
+        }
+
+        directionsService
+            .route({
+                origin: route[0].start,
+                destination: route[route.length -1].stop,
+                waypoints: waypoints,
+                optimizeWaypoints: true,
+                travelMode: google.maps.TravelMode.DRIVING,
+            })
+            .then((response) => {
+                directionsRenderer.setDirections(response);
+            })
+            //.catch((e) => window.alert("Directions request failed due to " + status));
+    }
+    else {
+        alert("Cannot find route information.")
+    }
 }

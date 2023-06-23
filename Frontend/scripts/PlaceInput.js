@@ -1,4 +1,4 @@
-import { appVars } from './appVars.js';
+import { appData } from './appData.js';
 
 function addInputFieldForPlaces(event) {
     let inputDiv = document.createElement("div");
@@ -34,7 +34,7 @@ function addInputFieldForPlaces(event) {
         id: timeId,
         mapInfo: null
     }
-    appVars[placeType].push(place);
+    appData[placeType].push(place);
 
     let autocomplete = new google.maps.places.Autocomplete(
         input,
@@ -47,7 +47,7 @@ function addInputFieldForPlaces(event) {
 function romovePlaceInputField(event) {
     let parentNode = event.target.closest("[time-id]");
     let timeId = parentNode.getAttribute("time-id");
-    appVars.destinations = appVars.destinations.filter(x => x.id != timeId);
+    appData.destinations = appData.destinations.filter(x => x.id != timeId);
     parentNode.remove();
 }
 
