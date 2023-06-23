@@ -83,7 +83,8 @@ function getRoutesFromDistancMatrix(res) {
         }
         routes.push({ route, totalDistance, totalTime })
     })
-    console.log(routes);
+    console.log(sampleRoutes);
+    sampleRoutes.sort(compareRoutes);
     showRouteInformation(sampleRoutes);
 }
 
@@ -92,8 +93,8 @@ function showRouteInformation(routes) {
     document.querySelector("#routes").innerHTML = routes.map((x,i) => {
         return `
         <div>
-            <div>
-                <span>Route#${i}</span> | 
+            <div class="mt-4">
+                <span>Route#${i+1}</span> | 
                 <span>Total Distance: ${x.totalDistance/1000} KM</span> | 
                 <span>Estimated Time: ${getTime(x.totalTime)}</span>
             </div>
@@ -157,4 +158,8 @@ function getTime(seconds) {
     var date = new Date(null);
     date.setSeconds(seconds);
     return date.toISOString().substr(11, 8);
+}
+
+function compareRoutes(a, b) {
+    return a.totalDistance - b.totalDistance
 }
