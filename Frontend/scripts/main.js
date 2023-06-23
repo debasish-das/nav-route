@@ -84,10 +84,10 @@ function getRoutesFromDistancMatrix(res) {
         routes.push({ route, totalDistance, totalTime })
     })
 
-    console.log(sampleRoutes);
-    sampleRoutes.sort(compareRoutes);
-    appData.routes = sampleRoutes;
-    showRouteInformation(sampleRoutes);
+    console.log(routes);
+    routes.sort(compareRoutes);
+    appData.routes = routes;
+    showRouteInformation(routes);
 }
 
 function showRouteInformation(routes) {
@@ -175,10 +175,11 @@ function showRouteOnMap(event) {
     const routeId = event.target.getAttribute("route-id")
     if (appData.routes[routeId] && appData.routes[routeId].route && appData.routes[routeId].route.length) {
         const route = appData.routes[routeId].route;
+        console.log(route);
         const directionsService = new google.maps.DirectionsService();
         const directionsRenderer = new google.maps.DirectionsRenderer();
         const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 6,
+            zoom: 4,
             center: { lat: 41.85, lng: -87.65 },
         });
         directionsRenderer.setMap(map);
@@ -204,7 +205,7 @@ function showRouteOnMap(event) {
             .then((response) => {
                 directionsRenderer.setDirections(response);
             })
-            //.catch((e) => window.alert("Directions request failed due to " + status));
+            .catch((e) => window.alert("Directions request failed due to " + status));
     }
     else {
         alert("Cannot find route information.")
