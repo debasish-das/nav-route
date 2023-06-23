@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Map</title>
+    <style>
+        #map {
+            height: 600px;
+        }
+
+        .location-dropdown {
+            margin-right: 10px;
+        }
+
+        #add-dropdown-button {
+            margin-top: 10px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Map</h1>
+
+        <div id="dropdown-container" class="mb-3">
+            <label for="location1">Location 1:</label>
+            <select class="location-dropdown form-control" id="location1">
+            </select>
+
+            <label for="location2">Location 2:</label>
+            <select class="location-dropdown form-control" id="location2">
+            </select>
+        </div>
+
+        <button id="add-dropdown-button" class="btn btn-primary">Add Stop</button>
+        </br>
+        </br>
+        <div id="map" class="mt-3"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/ol@v7.4.0/dist/ol.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.4.0/ol.css">
+
+    <script src="script.js"></script>
+</body>
+
+</html>
