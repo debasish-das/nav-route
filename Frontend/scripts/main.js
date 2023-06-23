@@ -5,6 +5,7 @@
 
 import { addInputFieldForPlaces } from './PlaceInput.js';
 import { appVars } from './appVars.js';
+import { sampleRoutes } from '../data/sample.js';
 
 function initApp() {
     addInputFieldForPlaces();
@@ -68,19 +69,60 @@ function getRoutesFromDistancMatrix(res) {
     permute(dstIndexes.length, dstIndexes, (arr) => {
         let startIndex = 0;
         let destinationIndex = arr[0];
-        let moves = [getMoves(res, startIndex, destinationIndex)];
+        let move = getMove(res, startIndex, destinationIndex);
+        let route = [move];
+        let totalDistance = move.distance.value;
+        let totalTime = move.time.value
         for (let i = 0; i < arr.length - 1; i++) {
             startIndex = arr[i];
             destinationIndex = arr[i + 1]
-            moves.push(getMoves(res, startIndex, destinationIndex));
+            move = getMove(res, startIndex, destinationIndex);
+            route.push(move);
+            totalDistance += move.distance.value;
+            totalTime += move.time.value;
         }
-        routes.push({ route: moves })
+        routes.push({ route, totalDistance, totalTime })
     })
     console.log(routes);
-    document.querySelector("#routes").innerHTML = `<pre>${JSON.stringify(routes, null, 2)}</pre>`
+    showRouteInformation(sampleRoutes);
 }
 
-function getMoves(res, startIndex, destinationIndex) {
+function showRouteInformation(routes) {
+
+    document.querySelector("#routes").innerHTML = routes.map((x,i) => {
+        return `
+        <div>
+            <div>
+                <span>Route#${i}</span> | 
+                <span>Total Distance: ${x.totalDistance/1000} KM</span> | 
+                <span>Estimated Time: ${getTime(x.totalTime)}</span>
+            </div>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Start</th>
+                        <th scope="col">Stop</th>
+                        <th scope="col">Distance</th>
+                        <th scope="col">Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${x.route.map(y => {
+                        return `<tr>
+                                <td>${y.start}</td>
+                                <td>${y.stop}</td>
+                                <td>${y.distance.text}</td>
+                                <td>${y.time.text}</td>
+                            </tr>`
+                        }).join("")
+                    }
+                </tbody>
+            </table>
+        </div>`
+    }).join("")
+}
+
+function getMove(res, startIndex, destinationIndex) {
     return {
         start: res.originAddresses[startIndex],
         stop: res.destinationAddresses[destinationIndex],
@@ -102,13 +144,17 @@ function permute(k, arr, callbackForSequence) {
         for (let i = 0; i < k - 1; i++) {
             if (k % 2 == 0) {
                 [arr[k - 1], arr[i]] = [arr[i], arr[k - 1]]
-                // swapArray(arr, i, k - 1);
             }
             else {
                 [arr[k - 1], arr[0]] = [arr[0], arr[k - 1]]
-                // swapArray(arr, 0, k - 1);
             }
             permute(k - 1, arr, callbackForSequence)
         }
     }
+}
+
+function getTime(seconds) {
+    var date = new Date(null);
+    date.setSeconds(seconds);
+    return date.toISOString().substr(11, 8);
 }
