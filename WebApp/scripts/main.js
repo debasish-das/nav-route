@@ -3,16 +3,18 @@
 * Author: Group#5 (Das, Nithish, Sanad)
 */
 
+import { appData } from './appData.js';
+import { setMap } from './map.js';
 import { addInputFieldForPlaces } from './placeInput.js';
 import { generateRoutes } from './routes.js';
-import { appData } from './appData.js';
 
 function initApp() {
     addInputFieldForPlaces();
     addEventListeners();
 }
 
-window.initApp = initApp;
+// window.initApp = initApp;
+initApp()
 
 function addEventListeners() {
     [

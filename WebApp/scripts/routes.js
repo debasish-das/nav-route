@@ -1,5 +1,7 @@
 import { appData } from './appData.js';
+import { getTime, permute } from './helper.js';
 import { sampleRoutes } from '../data/sample.js';
+import { showDirectionOnMap } from './map.js';
 
 function generateRoutes() {
     if (appData.startingPoints.length && appData.startingPoints[0].mapInfo) {
@@ -62,16 +64,55 @@ function getRoutesFromDistancMatrix(res) {
         routes.push({ route, totalDistance, totalTime })
     })
 
-    console.log(routes);
-    routes.sort(compareRoutes);
-    appData.routes = routes;
-    showRouteInformation(routes);
+    appData.routes = routes.sort(compareRoutes);
+    showRouteInformation();
 }
 
-function showRouteInformation(routes) {
+function getMove(res, startIndex, destinationIndex) {
+    return {
+        start: res.originAddresses[startIndex],
+        stop: res.destinationAddresses[destinationIndex],
+        distance: res.rows[startIndex].elements[destinationIndex].distance,
+        time: res.rows[startIndex].elements[destinationIndex].duration
+    }
+}
 
-    document.querySelector("#routes").innerHTML = routes.map((x, i) => {
-        return `
+function compareRoutes(a, b) {
+    return a.totalDistance - b.totalDistance
+}
+
+function showRouteInformation() {
+    let routesDiv = document.querySelector("#routes")
+    appData.numberOfRoutesToShow = 5
+    appData.routingIndexStart = 0
+
+    routesDiv.innerHTML = `<div id="route-container">${generateRouteHtmlAndDirection()}</div>`
+    routesDiv.addEventListener("click", (e) => {
+        const target = e.target.closest(".map-show-btn")
+        if (target) {
+            showDirectionOnMap(target)
+        }
+    })
+
+    if (appData.routes.length > appData.numberOfRoutesToShow) {
+        routesDiv.innerHTML += `<button id="more-routes-btn">Show more routes</button>`
+        document.querySelector("#more-routes-btn").addEventListener("click", (event) => {
+            appData.numberOfRoutesToShow += 5;
+            appData.routingIndexStart += 5;
+            document.querySelector("#route-container").innerHTML += generateRouteHtmlAndDirection()
+            if (appData.numberOfRoutesToShow > appData.routes.length) {
+                event.target.remove()
+            }
+        })
+    }
+}
+
+function generateRouteHtmlAndDirection() {
+    let routeInfo = ""
+    for (let i = appData.routingIndexStart; i < appData.routes.length && i < appData.numberOfRoutesToShow; i++) {
+        const x = appData.routes[i];
+        getDirection(x)
+        routeInfo += `
         <div>
             <div class="mt-4">
                 <span>Route#${i + 1}</span> | 
@@ -101,72 +142,21 @@ function showRouteInformation(routes) {
                 </tbody>
             </table>
         </div>`
-    }).join("");
-
-    document.querySelectorAll(".map-show-btn").forEach(element => {
-        element.addEventListener("click", showRouteOnMap)
-    })
-}
-
-function getMove(res, startIndex, destinationIndex) {
-    return {
-        start: res.originAddresses[startIndex],
-        stop: res.destinationAddresses[destinationIndex],
-        distance: res.rows[startIndex].elements[destinationIndex].distance,
-        time: res.rows[startIndex].elements[destinationIndex].duration
     }
+
+    return routeInfo
 }
 
-// GeneratingPermutation using heap algorithm
-// Reference: https://en.wikipedia.org/wiki/Heap%27s_algorithm
-function permute(k, arr, callbackForSequence) {
-    if (k === 1) {
-        if (callbackForSequence) {
-            callbackForSequence(arr)
-        }
-    }
-    else {
-        permute(k - 1, arr, callbackForSequence);
-        for (let i = 0; i < k - 1; i++) {
-            if (k % 2 == 0) {
-                [arr[k - 1], arr[i]] = [arr[i], arr[k - 1]]
-            }
-            else {
-                [arr[k - 1], arr[0]] = [arr[0], arr[k - 1]]
-            }
-            permute(k - 1, arr, callbackForSequence)
-        }
-    }
-}
-
-function getTime(seconds) {
-    var date = new Date(null);
-    date.setSeconds(seconds);
-    return date.toISOString().substr(11, 8);
-}
-
-function compareRoutes(a, b) {
-    return a.totalDistance - b.totalDistance
-}
-
-function showRouteOnMap(event) {
-    const routeId = event.target.getAttribute("route-id")
-    if (appData.routes[routeId] && appData.routes[routeId].route && appData.routes[routeId].route.length) {
-        const route = appData.routes[routeId].route;
-        console.log(route);
+function getDirection(route) {
+    let routeSteps = route.route
+    if (routeSteps) {
         const directionsService = new google.maps.DirectionsService();
-        const directionsRenderer = new google.maps.DirectionsRenderer();
-        const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 4,
-            center: { lat: 41.85, lng: -87.65 },
-        });
-        directionsRenderer.setMap(map);
         const waypoints = [];
 
-        for (let i = 1; i < route.length; i++) {
-            if (route[i].start) {
+        for (let i = 1; i < routeSteps.length; i++) {
+            if (routeSteps[i].start) {
                 waypoints.push({
-                    location: route[i].start,
+                    location: routeSteps[i].start,
                     stopover: true,
                 });
             }
@@ -174,17 +164,17 @@ function showRouteOnMap(event) {
 
         directionsService
             .route({
-                origin: route[0].start,
-                destination: route[route.length -1].stop,
+                origin: routeSteps[0].start,
+                destination: routeSteps[routeSteps.length - 1].stop,
                 waypoints: waypoints,
                 optimizeWaypoints: true,
                 travelMode: google.maps.TravelMode.DRIVING,
             })
             .then((response) => {
-                console.log(response)
-                directionsRenderer.setDirections(response);
+                route.directionResponse = response;
+                console.log(appData.routes)
             })
-            .catch((e) => window.alert("Directions request failed due to " + status));
+            .catch((e) => window.alert("Directions request failed due to " + e.message));
     }
     else {
         alert("Cannot find route information.")

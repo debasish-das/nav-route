@@ -12,11 +12,18 @@ function addInputFieldForPlaces(event) {
     inputDiv.setAttribute("time-id", timeId);
 
     let isStartPoint = event && event.target.id === "add-place-btn" ? false : true;
+    let placeType = isStartPoint ? "startingPoints" : "destinations";
+
     if (isStartPoint) {
         input.setAttribute("placeholder", "Enter starting point");
         document.getElementById("places").prepend(inputDiv);
     }
     else {
+        if (appData[placeType]?.length === 8) {
+            alert("Maximum destination can be 8");
+            return;
+        }
+        
         let crossBtn = document.createElement("span");
         crossBtn.innerHTML = `❌`
         crossBtn.className = "input-group-text";
@@ -29,7 +36,6 @@ function addInputFieldForPlaces(event) {
         document.getElementById("destinations").prepend(inputDiv);
     }
 
-    let placeType = isStartPoint ? "startingPoints" : "destinations";
     let place = {
         id: timeId,
         mapInfo: null

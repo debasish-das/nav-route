@@ -1,5 +1,8 @@
 export let appData = {
     startingPoints: [],
     destinations: [],
-    routes: []
+    routes: [],
+    mainMap: null,
+    numberOfRoutesToShow: 5,
+    routingIndexStart: 0
 }
