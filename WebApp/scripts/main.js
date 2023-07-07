@@ -4,7 +4,7 @@
 */
 
 import { appData } from './appData.js';
-import { setMap } from './map.js';
+import { setMap } from './mapDirection.js';
 import { addInputFieldForPlaces } from './placeInput.js';
 import { generateRoutes } from './routes.js';
 
