@@ -1,3 +1,4 @@
+## Report
 * introduction and motivation and changes
 * individual and group contribution
 * methodology (*most important)
@@ -12,3 +13,12 @@
 * quality of writing is important
 * risks and deliverables go away
 
+# Take care of the suggestions and comments made by the professor
+
+## Prsentation
+* Describe architecture and business 2min
+* Describe the backend and architecture 2min
+* Describe the used api 2min
+* Describe UI 2min
+* Reharsal
+* Freeze code before 24hrs

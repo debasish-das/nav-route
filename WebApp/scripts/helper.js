@@ -26,4 +26,16 @@ const permute = (k, arr, callbackForSequence) => {
     }
 }
 
-export { getTime, permute }
+// Google Map API Referrence:
+// https://developers.google.com/maps/documentation/routes_preferred/reference/rest/Shared.Types/Maneuver
+const isLeftTurn = (manevuer) => {
+    const pattern = /ROUNDABOUT.LEFT|FORK.LEFT|RAMP.LEFT|TURN.LEFT|TURN.SLIGHT.LEFT|TURN.SHARP.LEFT|TURN.LEFT|UTURN.LEFT/i
+    if (pattern.test(manevuer)) return true;
+}
+
+const isRightTurn = (manevuer) => {
+    const pattern = /ROUNDABOUT.RIGHT|FORK.RIGHT|RAMP.RIGHT|TURN.RIGHT|TURN.SLIGHT.RIGHT|TURN.SHARP.RIGHT|TURN.RIGHT|UTURN.RIGHT/i
+    if (pattern.test(manevuer)) return true;
+}
+
+export { getTime, permute, isLeftTurn, isRightTurn }
