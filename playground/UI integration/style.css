@@ -1,0 +1,100 @@
+@charset "utf-8";
+
+* {
+  box-sizing: border-box;
+}
+body{  
+  background-image: url("bg.png");
+  background-color: #b3d9ff;  
+  
+  -webkit-animation: slidein 30s;
+        animation: slidein 30s;
+
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+
+        -webkit-animation-direction: alternate;
+        animation-direction: alternate;              
+}
+
+@-webkit-keyframes slidein {
+  from {background-position: top; background-size:1005px;}
+  to {background-position: -100px 0px;background-size:750px;}
+  }
+  
+  @keyframes slidein {
+  from {background-position: top; background-size:1005px;}
+  to {background-position: -100px 0px; background-size: 750px;}
+  
+  }
+
+  #places{
+    width:70%;
+  margin:auto;  }
+
+  .nav-item{
+    font-size: large;
+  }
+  
+   .center {
+    width: 70%;
+    border: 3px solid green;
+  }
+  .nav-route
+  {
+    background-color: #000066;
+    padding: 1%;
+    border-radius: 10px;
+  }
+
+  .button
+  {
+    width: 40% !important;
+    padding: 1%;
+    margin: 3%;
+    background-color: #000066;        
+    border: 1px;
+    border-radius: 10px;
+  }
+  .button:hover
+  {
+    width: 40% !important;
+    padding: 1%;
+    margin: 3%;
+    background-color: #000080;        
+    border: 1px;
+    border-radius: 10px;
+  }
+ 
+  .option-menu
+  {
+    color:#000066;
+    font-size: medium;
+    text-decoration: none !important;
+  }
+  .option-menu:hover{
+    color:#000066;
+    font-size: medium;
+    border: 2px solid #000066;
+    border-radius: 10px;
+    text-decoration: none !important;
+  }
+
+  .option-button{
+    padding: 1%;
+    margin: 3%;
+    background-color: #000080;        
+    border: 1px;
+    border-radius: 10px;
+  }
+  .option-button:hover
+  {    
+    padding: 1%;
+    margin: 3%;
+    background-color: #000080;        
+    border: 1px;
+    border-radius: 10px;
+  }
