@@ -10,7 +10,7 @@ function showRouteInformation() {
 
     generateRouteHtmlAndDirection(res => {
         routesDiv.innerHTML = `<div>
-            <select id="sort-select" class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <select id="sort-select" class="form-select">
                 <option>Sort Routes</option>
                 <option value="leftTurns">Left turn sorts</option>
                 <option value="rightTurns">Right turn sorts</option>

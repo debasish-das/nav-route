@@ -33,6 +33,8 @@ const isLeftTurn = (manevuer) => {
     if (pattern.test(manevuer)) return true;
 }
 
+// Google Map API Referrence:
+// https://developers.google.com/maps/documentation/routes_preferred/reference/rest/Shared.Types/Maneuver
 const isRightTurn = (manevuer) => {
     const pattern = /ROUNDABOUT.RIGHT|FORK.RIGHT|RAMP.RIGHT|TURN.RIGHT|TURN.SLIGHT.RIGHT|TURN.SHARP.RIGHT|TURN.RIGHT|UTURN.RIGHT/i
     if (pattern.test(manevuer)) return true;
