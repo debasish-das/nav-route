@@ -13,21 +13,41 @@ function generateRoutes() {
                 places.push(d.mapInfo.formatted_address)
             })
 
-            const request = {
-                origins: places,
-                destinations: places,
-                travelMode: google.maps.TravelMode.DRIVING,
-                unitSystem: google.maps.UnitSystem.METRIC
-            };
-            const service = new google.maps.DistanceMatrixService();
-            service.getDistanceMatrix(request).then((res) => {
-                if (res) {
-                    getRoutesFromDistancMatrix(res);
-                }
-                else {
-                    alert("Could not found any route");
-                }
-            })
+            if (destinations.length == 1) {
+                const request = {
+                    origin: places[0],
+                    destination: places[1],
+                    travelMode: google.maps.TravelMode.DRIVING,
+                    unitSystem: google.maps.UnitSystem.METRIC,
+                    provideRouteAlternatives: true
+                };
+                const service = new google.maps.DirectionsService();
+                service.route(request).then((res) => {
+                    if (res) {
+                        getRoutesFromDirectionService(res);
+                    }
+                    else {
+                        alert("Could not found any route");
+                    }
+                })
+            }
+            else {
+                const request = {
+                    origins: places,
+                    destinations: places,
+                    travelMode: google.maps.TravelMode.DRIVING,
+                    unitSystem: google.maps.UnitSystem.METRIC
+                };
+                const service = new google.maps.DistanceMatrixService();
+                service.getDistanceMatrix(request).then((res) => {
+                    if (res) {
+                        getRoutesFromDistancMatrix(res);
+                    }
+                    else {
+                        alert("Could not found any route");
+                    }
+                })
+            }
         }
         else {
             alert("Please enter valid destination");
@@ -36,6 +56,36 @@ function generateRoutes() {
     else {
         alert("Please enter starting point");
     }
+}
+
+function getRoutesFromDirectionService(res) {
+    let routes = [];
+    for (let i=0; i< res.routes.length; i++){
+        let totalDistance = res.routes[i].legs[0].distance;
+        let totalTime = res.routes[i].legs[0].duration;
+        let st = res.routes[i].legs[0].start_address;
+        let ed = res.routes[i].legs[0].end_address;
+        let via = res.routes[i].summary;
+
+        let route = {
+            start: st, 
+            stop: ed, 
+            time: totalTime, 
+            distance: totalDistance, 
+            via: via,
+            rr: res.routes[i],
+            rrr: res
+        }
+
+        routes.push({
+            route,
+            totalDistance,
+            totalTime,
+            id: i
+        })
+    }
+    appData.routes = routes.sort(compareRoutes);
+    showRouteInformation("ds");
 }
 
 function getRoutesFromDistancMatrix(res) {
@@ -56,7 +106,6 @@ function getRoutesFromDistancMatrix(res) {
 
     //List of all possible routes
     let routes = [];
-
     let priorityMoves = []
     let priorityDistance = 0
     let priorityTime = 0
@@ -139,7 +188,7 @@ function getRoutesFromDistancMatrix(res) {
     }
 
     appData.routes = routes.sort(compareRoutes);
-    showRouteInformation();
+    showRouteInformation("dm");
 }
 
 function getMove(res, startIndex, destinationIndex) {
