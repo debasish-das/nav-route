@@ -18,5 +18,17 @@ module WebApi
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '127.0.0.1:5500','127.0.0.1:8088'
+        
+        resource '/*', 
+          headers: :any, 
+          methods: :any,
+          credentials: true
+      end
+    end
+
   end
 end
