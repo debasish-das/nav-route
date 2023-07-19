@@ -1,4 +1,4 @@
-## Frontend
+## Frontend Web App
 ### ES6 Module Application
 Path: ./WebApp
 
@@ -23,12 +23,24 @@ External CSS Libraries:
 ```
 * Live server extenstion from VS code can be used to run the frontend in development environment. Then clicking the `Go Live` button at bottom right.
 * Or, if we have NodeJs, we can install `http-server` with npm. Then, run the command `http-server ./WebApp -p 8088`
+* Or, we can ran run it any sever that has port 8088 or 5500
 
-## Backend
+## Backend WebAPI
 ### Rails API 
 Path: ./WebApp
 
 Recources: https://guides.rubyonrails.org/, https://guides.rubyonrails.org/api_app.html
+
+#### Steps to run:
+* Install postgresql
+* Install ruby on rails
+* Go to the `WebApi` directory and run the following commands:
+```
+bundle
+rails db:create
+rails db:migrate
+rails server
+```
 
 #### Steps to Setup and Develop the WebAPI:
 * Install ruby and rails

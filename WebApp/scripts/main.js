@@ -9,6 +9,7 @@ import { addInputFieldForPlaces } from './placeInput.js';
 import { generateRoutes } from './routes.js';
 
 function initApp() {
+    showSection("welcome-sect");
     addInputFieldForPlaces();
     addEventListeners();
 }
@@ -23,4 +24,18 @@ function addEventListeners() {
     ].forEach(item => {
         document.querySelector(item.selector).addEventListener("click", item.eventFunction, false)
     })
+
+    document.querySelectorAll("[target-section]").forEach((element) => {
+        element.onclick = (event) => {
+            let sectionId = event.target.getAttribute("target-section")
+            showSection(sectionId)
+        }
+    })
+}
+
+function showSection(sectionId) {
+    document.querySelectorAll(".section").forEach((element) => {
+        element.classList.add("d-none")
+    });
+    document.getElementById(sectionId).classList.remove("d-none");
 }
