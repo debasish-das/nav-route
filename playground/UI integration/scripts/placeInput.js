@@ -9,7 +9,7 @@ function addInputFieldForPlaces(event) {
     inputDiv.appendChild(input);
 
     let timeId = new Date().valueOf();
-    inputDiv.setAttribute("time-id", timeId);
+    inputDiv.setAttribute("place-input-id", timeId);
 
     let isStartPoint = event && event.target.id === "add-place-btn" ? false : true;
     let placeType = isStartPoint ? "startingPoints" : "destinations";
@@ -23,16 +23,11 @@ function addInputFieldForPlaces(event) {
             alert("Maximum destination can be 8");
             return;
         }
-        
-        let crossBtn = document.createElement("span");
-        crossBtn.innerHTML = `❌`
-        crossBtn.className = "input-group-text";
-        crossBtn.style = "cursor:pointer";
-        crossBtn.timeId = timeId
-        crossBtn.addEventListener("click", romovePlaceInputField);
 
         input.setAttribute("placeholder", "Enter destination");
-        inputDiv.appendChild(crossBtn);
+        input.style = "flex-basis:45%"
+        inputDiv.appendChild(getPriorityInput())
+        inputDiv.appendChild(getCrossButton());
         document.getElementById("destinations").prepend(inputDiv);
     }
 
@@ -50,11 +45,42 @@ function addInputFieldForPlaces(event) {
     });
 }
 
+function getCrossButton() {
+    let crossBtn = document.createElement("span");
+    crossBtn.innerHTML = `✖`
+    crossBtn.className = "input-group-text";    
+    crossBtn.style = "cursor:pointer";
+    crossBtn.addEventListener("click", romovePlaceInputField);
+    return crossBtn
+}
+
 function romovePlaceInputField(event) {
-    let parentNode = event.target.closest("[time-id]");
-    let timeId = parentNode.getAttribute("time-id");
-    appData.destinations = appData.destinations.filter(x => x.id != timeId);
+    let parentNode = event.target.closest("[place-input-id]");
+    let inputId = parentNode.getAttribute("place-input-id");
+    appData.destinations = appData.destinations.filter(x => x.id != inputId);
     parentNode.remove();
+}
+
+function getPriorityInput() {
+    let prioritySelect = document.createElement("select");
+    prioritySelect.className = "form-select"
+    prioritySelect.innerHTML = `
+        <option value="">Priority</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    `
+    prioritySelect.addEventListener("change", selectPriority)
+    return prioritySelect;
+}
+
+function selectPriority(event) {
+    let parentNode = event.target.closest("[place-input-id]");
+    let inputId = parentNode.getAttribute("place-input-id");
+    let destination = appData.destinations.find(x => x.id == inputId);
+    destination.priority = parseInt(event.target.value);
 }
 
 export { addInputFieldForPlaces, romovePlaceInputField }

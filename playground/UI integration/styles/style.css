@@ -31,10 +31,13 @@ body{
   
   }
 
+
+
   #places{
-    width:70%;
+    width:75%;
   margin:auto;  }
 
+  
   .nav-item{
     font-size: large;
   }
