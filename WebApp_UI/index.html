@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CDN -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="./styles/bootstrap.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <script defer src="./scripts/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.43/polyfill.min.js"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGQatKGuv5dcXt9KCkCgIgW6jCAGpuvMs&libraries=places"></script>
+    <script defer type="module" src="./scripts/main.js"></script>
+
+    <title>Nav-Route</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-light sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" target-section="welcome-sect">Nav-Route</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" target-section="places-sect">Places</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" target-section="routes-sect">Routes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" target-section="map-sect">Map</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex">
+                <button class="btn btn-primary me-2" target-section="signin-sect">Sign in</button>
+            </div>
+        </div>
+    </nav>    
+    <div class="container mt-5">
+        <div class="section" id="welcome-sect">
+            <h1 class="text-center">Welcome to Nav-route</h1>
+        </div>
+        <div class="section" id="signin-sect">
+            <div class="row" style="height: 75vh;">
+                <div class="col-md-8 col-lg-6 align-self-center" style="margin: auto;">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" required placeholder="Email address">
+                        <label for="email">Email address</label>
+                    </div>
+                    <div class="form-floating mb-4">
+                        <input type="password" class="form-control" id="password" required placeholder="Password">
+                        <label for="password">Password</label>
+                    </div>
+                    <button class="btn btn-lg btn-primary mb-4 w-100">Sign in</button>
+                    <button class="btn btn-lg btn-primary w-100" target-section="signup-sect">Register to sign in</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section text-center mt-5" id="places-sect">
+            <div id="places">
+                <button class="btn btn-primary m-3 w-25" id="add-place-btn">Add Destination</button>
+                <button class="btn btn-primary m-3 w-25" id="generate-route-btn">Show Routes</button>
+                <div id="destinations"></div>
+            </div>
+        </div>
+        <div class="section" id="routes-sect">
+            <div id="routes"></div>
+        </div>
+        <div class="section" id="map-sect">
+            <div id="map"></div>
+        </div>
+        
+    </div>
+</body>
+
+</html>
