@@ -41,31 +41,35 @@
                 </ul>
             </div>
             <div class="d-flex">
-                <button class="btn btn-primary me-2" target-section="signin-sect">Sign in</button>
+                <button class="btn btn-primary me-2" id="signin-btn" target-section="signin-sect">Sign in</button>
+                <button class="btn btn-primary d-none" id="signout-btn">Sign out</button>
             </div>
         </div>
     </nav>
     <div class="container mt-4">
-        <div class="section" id="welcome-sect">
+        <div class="section d-none" id="welcome-sect">
             Welcome to Nav-route
         </div>
-        <div class="section" id="signin-sect">
+        <div class="section d-none" id="signin-sect">
             <div class="row" style="height: 75vh;">
                 <div class="col-md-8 col-lg-6 align-self-center" style="margin: auto;">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="email" required placeholder="Email address">
-                        <label for="email">Email address</label>
-                    </div>
-                    <div class="form-floating mb-4">
-                        <input type="password" class="form-control" id="password" required placeholder="Password">
-                        <label for="password">Password</label>
-                    </div>
-                    <button class="btn btn-lg btn-primary mb-4 w-100">Sign in</button>
-                    <button class="btn btn-lg btn-outline-primary w-100" target-section="signup-sect">Register to sign in</button>
+                    <form  id="signin-form">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="email" name="email" required placeholder="Email address">
+                            <label for="email">Email address</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="password" class="form-control" id="password" name="password" required placeholder="Password">
+                            <label for="password">Password</label>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary mb-4 w-100">Sign in</button>
+                    </form>
+                    <button class="btn btn-lg btn-outline-primary w-100" target-section="signup-sect">Register to sign
+                        in</button>
                 </div>
             </div>
         </div>
-        <div class="section" id="places-sect">
+        <div class="section d-none" id="places-sect">
             <div id="places">
                 <button class="btn btn-primary mb-3 w-100" id="add-place-btn">Add Destination</button>
                 <button class="btn btn-warning mb-3 w-100" id="generate-route-btn">Show Routes</button>
@@ -73,15 +77,45 @@
                 </div>
             </div>
         </div>
-        <div class="section" id="routes-sect">
+        <div class="section d-none" id="routes-sect">
             <div id="routes">
             </div>
         </div>
-        <div class="section" id="map-sect">
+        <div class="section d-none" id="map-sect">
             <div id="map">
             </div>
         </div>
-
+        <div class="section d-none" id="signup-sect">
+            <div class="row" style="height: 75vh;">
+                <div class="col-md-8 col-lg-6 align-self-center" style="margin: auto;">
+                    <div id="signup-error"></div>
+                    <form  id="signup-form">
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="first_name" name="first_name" required placeholder="First Name">
+                            <label for="first_name">First Name*</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="last_name" name="last_name" required placeholder="Last Name">
+                            <label for="password">Last Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="email" name="email" required placeholder="Email address">
+                            <label for="email">Email address*</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="password" class="form-control" id="password" name="password" required placeholder="Password">
+                            <label for="password">Password*</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required
+                                placeholder="Password confirmation">
+                            <label for="password_confirmation">Password confirmation</label>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary w-100">Sign up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

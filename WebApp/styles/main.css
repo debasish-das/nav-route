@@ -1,9 +1,9 @@
 
 #map {
-    height: 90vh;
+    height: 75vh;
     width: 100%;
 }
 
-.nav-item {
+.nav-item, .navbar-brand {
     cursor: pointer;
 }

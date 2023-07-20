@@ -40,4 +40,16 @@ const isRightTurn = (manevuer) => {
     if (pattern.test(manevuer)) return true;
 }
 
-export { getTime, permute, isLeftTurn, isRightTurn }
+function parseErrorList(err) {
+    let errStr = `<ul class="alert alert-danger alert-dismissible fade show p-4" role="alert" >`
+    for (let item in err) {
+        let field = item.replace(/(^|_)(\w)/g, function ($0, $1, $2) {
+            return ($1 && ' ') + $2.toUpperCase();
+        });
+        errStr += `<li>${field} ${err[item][0]}</li>`;
+    }
+    errStr += `<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></ul>`;
+    return errStr
+}
+
+export { getTime, permute, isLeftTurn, isRightTurn, parseErrorList }

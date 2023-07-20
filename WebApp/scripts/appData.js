@@ -4,5 +4,6 @@ export let appData = {
     routes: [],
     mainMap: null,
     numberOfRoutesToShow: 5,
-    routingIndexStart: 0
+    routingIndexStart: 0,
+    currentUser: null
 }
