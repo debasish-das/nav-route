@@ -7,15 +7,24 @@ const setMap = (selector) => {
     });
 }
 
-const showDirectionOnMap = (target) => {
+const showDirectionOnMap = (target, flag) => {
     const routeId = target.getAttribute("route-id");
     const route = appData.routes.find(x => x.id == routeId)
     if (route) {
-        const directionResponse = appData.routes[routeId].directionResponse;
+        let directionResponse = "";
+        if (flag == "ds"){
+            directionResponse = appData.routes[routeId].route.rrr;            
+        }
+        else{
+            directionResponse = appData.routes[routeId].directionResponse;
+        }
         const directionsRenderer = new google.maps.DirectionsRenderer();
         appData.mainMap = setMap("map");
         directionsRenderer.setMap(appData.mainMap);
         directionsRenderer.setDirections(directionResponse);
+        if (flag == "ds"){
+            directionsRenderer.setRouteIndex(parseInt(routeId));
+        }
     }
 }
 
