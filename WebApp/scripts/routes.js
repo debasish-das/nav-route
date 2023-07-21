@@ -108,6 +108,8 @@ function getRoutesFromDistancMatrix(res) {
                 move = getMove(res, startIndex, destinationIndex)
                 route.push(...priorityMoves)
                 route.push(move)
+                totalDistance = priorityDistance + move.distance.value
+                totalTime = priorityTime + move.time.value
             }
             // Case#3: Only non-prioritized moves
             // Then, find the move from starting place to the starting place of permuted non-prioritized destinations
