@@ -57,12 +57,12 @@ function getCurrentuser() {
     user.current().then(res => {
         if (res?.id) {
             appData.currentUser = res
-            showSection("welcome-sect")
+            //showSection("welcome-sect")
         } else {
             showSection("signin-sect")
         }
     }).catch(err => {
-        alert("Please sign in!")
+        showSection("signin-sect")
     })
 }
 
@@ -111,7 +111,6 @@ function signup(event) {
             document.getElementById("signup-error").innerHTML = parseErrorList(error);
         })
 }
-
 
 function signout(event) {
     event.preventDefault()

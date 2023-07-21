@@ -13,7 +13,7 @@ function showSection(sectionId, showSignInAlert = true) {
     }
     else {
         document.getElementById("signout-btn").classList.add("d-none")
-        if (showSignInAlert) alert("Please sign in")
+        if (showSignInAlert) alert("Please sign in!")
         showSection("signin-sect")
     }
 
