@@ -48,18 +48,18 @@ function addEventListeners() {
 }
 
 function checkCurrentUser() {
-    getCurrentuser()
+    getCurrentuser(true)
     setInterval(getCurrentuser, 1000 * 60 * 5)
 }
 
-function getCurrentuser() {
+function getCurrentuser(isHome) {
     appData.currentUser = null
     user.current().then(res => {
         if (res?.id) {
             appData.currentUser = res
-            //showSection("welcome-sect")
+            showSection("welcome-sect")
         } else {
-            showSection("signin-sect")
+            if(isHome) showSection("signin-sect")
         }
     }).catch(err => {
         showSection("signin-sect")
