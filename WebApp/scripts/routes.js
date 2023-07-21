@@ -1,6 +1,7 @@
 import { appData } from './appData.js';
 import { permute } from './helper.js';
 import { showRouteInformation } from './routesOutput.js';
+import { showSection } from './sectionNavigation.js';
 
 function generateRoutes() {
     if (appData.startingPoints.length && appData.startingPoints[0].mapInfo) {
@@ -142,6 +143,7 @@ function getRoutesFromDistancMatrix(res) {
 
     appData.routes = routes.sort(compareRoutes);
     showRouteInformation();
+    showSection("routes-sect")
 }
 
 function getMove(res, startIndex, destinationIndex) {

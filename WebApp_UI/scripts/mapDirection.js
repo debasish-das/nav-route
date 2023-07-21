@@ -1,3 +1,4 @@
+import { showSection } from "../../WebApp/scripts/sectionNavigation.js";
 import { appData } from "./appData.js";
 
 const setMap = (selector) => {
@@ -16,6 +17,8 @@ const showDirectionOnMap = (target) => {
         appData.mainMap = setMap("map");
         directionsRenderer.setMap(appData.mainMap);
         directionsRenderer.setDirections(directionResponse);
+        showSection("map-sect");
+        
     }
 }
 

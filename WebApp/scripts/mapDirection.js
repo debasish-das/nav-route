@@ -1,4 +1,5 @@
 import { appData } from "./appData.js";
+import { showSection } from "./sectionNavigation.js";
 
 const setMap = (selector) => {
     return new google.maps.Map(document.getElementById(selector), {
@@ -16,6 +17,7 @@ const showDirectionOnMap = (target) => {
         appData.mainMap = setMap("map");
         directionsRenderer.setMap(appData.mainMap);
         directionsRenderer.setDirections(directionResponse);
+        showSection("map-sect");
     }
 }
 

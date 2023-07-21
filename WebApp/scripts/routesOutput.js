@@ -20,7 +20,7 @@ function showRouteInformation() {
         </div>`
 
         if (appData.routes.length > appData.numberOfRoutesToShow) {
-            routesDiv.innerHTML += `<button id="more-routes-btn">Show more routes</button>`
+            routesDiv.innerHTML += `<button class="btn btn-warning mb-5" id="more-routes-btn">Show more routes ▶</button>`
         }
     })
 
@@ -101,15 +101,15 @@ async function generateRouteHtmlAndDirection(callback) {
 
 function getRouteHtml(x) {
     return `
-        <div>
-            <div class="mt-4">
+        <div class="mt-4 mb-2 bg-light p-2 border border-info">
+            <div class="mb-2">
                 <span>Route#${x.id}</span> | 
                 <span>Total Distance: ${x.totalDistance / 1000} KM</span> | 
                 <span>Estimated Time: ${getTime(x.totalTime)}</span> |
                 <span>Turns: ${x.turns}</span> |
                 <span>Left Turns: ${x.leftTurns}</span> |
                 <span>Right Turns: ${x.rightTurns}</span> |
-                <button class="map-show-btn" route-id="${x.id}">Show Map</button>
+                <button class="map-show-btn btn btn-warning" route-id="${x.id}">Show Map 🗺️</button>
             </div>
             <table class="table table-striped table-bordered">
                 <thead>
