@@ -23,11 +23,11 @@ External CSS Libraries:
 ```
 * Live server extenstion from VS code can be used to run the frontend in development environment. Then clicking the `Go Live` button at bottom right.
 * Or, if we have NodeJs, we can install `http-server` with npm. Then, run the command `http-server ./WebApp -p 8088`
-* Or, we can ran run it any sever that has port 8088 or 5500
+* Or, we can run it any sever that has port 8088 or 5500
 
 ## Backend WebAPI
 ### Rails API 
-Path: ./WebApp
+Path: ./WebAPI
 
 Recources: https://guides.rubyonrails.org/, https://guides.rubyonrails.org/api_app.html
 
