@@ -42,7 +42,7 @@ rails db:migrate
 rails server
 ```
 
-#### Steps to Setup and Develop the WebAPI:
+#### Steps to Develop the WebAPI:
 * Install ruby and rails
 * Initialize rails api with the following command
 ```ruby
