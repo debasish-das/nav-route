@@ -3,7 +3,7 @@
 ### Introduction
 
 It is an web application that shows the efficient routes to visit multiple destinations/places based on Shortest distance or, Priority or, Number of Left/Right Turns. 
-The routes can be sorted and viewed on map. Sign up and Sign is required to use the application.
+The routes can be sorted and viewed on map. Sign Up and Sign In is required to use the application.
 
 ### ES6 Module Application
 Path: ./WebApp
