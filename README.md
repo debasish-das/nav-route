@@ -3,7 +3,14 @@
 ### Introduction
 
 The web application finds the efficient routes to visit multiple destinations/places based on **distance**, **priority** and number of left/right **turns**. 
-The generated routes can be sorted and viewed on map. Sign Up and Sign In are required to use the application.
+The generated routes can be sorted and viewed on map. Sign Up and Sign In are required to use the application. 
+
+Here is a compressed video demo:
+
+
+https://github.com/debasish-das/nav-route/assets/8478788/ac8c1089-b776-40d3-bf75-1217fa2493d1
+
+
 
 ### Frontend (ES6 Module Application)
 Path: ./WebApp
